@@ -63,7 +63,7 @@ swm_df = tibble(
 
 Get water data from NYC.
 
-`content()` gives the data. `parsed` will help organize.
+`content()` gives the data. `parsed` will help organize. Use `GET()` for APIs.
 
 ```{r}
 nyc_water = 
@@ -78,5 +78,13 @@ brfss_smart2010 =
   GET("https://data.cdc.gov/resource/acme-vg9e.csv",
       query = list("$limit" = 5000)) |> 
   content("parsed")
+```
+
+Pokemon data
+
+```{r}
+poke = 
+  GET("http://pokeapi.co/api/v2/pokemon/1") |>
+  content()
 ```
 
