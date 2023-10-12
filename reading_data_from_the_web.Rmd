@@ -31,14 +31,16 @@ nsduh_html |>
   slice(-1)
 ```
 
-CSS Selectors: Import Star Wars
+# CSS Selectors
+
+Import Star Wars
 
 ```{r}
 swm_html = 
   read_html("https://www.imdb.com/list/ls070150896/")
 ```
 
-Use Selector Gadget on the website...
+# Use Selector Gadget on the website...
 
 ```{r}
 swm_title_vec = 
@@ -57,5 +59,24 @@ swm_df = tibble(
 )
 ```
 
-Using an API
+# Using an API
+
+Get water data from NYC.
+
+`content()` gives the data. `parsed` will help organize.
+
+```{r}
+nyc_water = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") |> 
+  content("parsed")
+```
+
+BRFSS data
+
+```{r}
+brfss_smart2010 = 
+  GET("https://data.cdc.gov/resource/acme-vg9e.csv",
+      query = list("$limit" = 5000)) |> 
+  content("parsed")
+```
 

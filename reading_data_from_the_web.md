@@ -52,14 +52,16 @@ nsduh_html |>
   slice(-1)
 ```
 
-CSS Selectors: Import Star Wars
+# CSS Selectors
+
+Import Star Wars
 
 ``` r
 swm_html = 
   read_html("https://www.imdb.com/list/ls070150896/")
 ```
 
-Use Selector Gadget on the website…
+# Use Selector Gadget on the website…
 
 ``` r
 swm_title_vec = 
@@ -78,4 +80,41 @@ swm_df = tibble(
 )
 ```
 
-Using an API
+# Using an API
+
+Get water data from NYC.
+
+`content()` gives the data. `parsed` will help organize.
+
+``` r
+nyc_water = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") |> 
+  content("parsed")
+```
+
+    ## Rows: 44 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## dbl (4): year, new_york_city_population, nyc_consumption_million_gallons_per...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+BRFSS data
+
+``` r
+brfss_smart2010 = 
+  GET("https://data.cdc.gov/resource/acme-vg9e.csv",
+      query = list("$limit" = 5000)) |> 
+  content("parsed")
+```
+
+    ## Rows: 5000 Columns: 23
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (16): locationabbr, locationdesc, class, topic, question, response, data...
+    ## dbl  (6): year, sample_size, data_value, confidence_limit_low, confidence_li...
+    ## lgl  (1): locationid
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
