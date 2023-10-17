@@ -1,0 +1,62 @@
+---
+title: "Strings and factors"
+author: "Diana Hernandez"
+date: "2023-10-17"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(p8105.datasets)
+```
+
+# Strings and manipulations
+
+`str_detect` finds the pattern within the string. Has to be exact match.
+
+`str_replace` can replace one string for another string.
+
+```{r}
+string_vec = c("my", "name", "is", "jeff")
+
+str_detect(string_vec, "jeff")
+
+str_detect(string_vec, "Jeff")
+
+str_replace(string_vec, "jeff", "Jeff")
+```
+
+start with: ^
+ends with: $
+
+```{r}
+string_vec = c(
+  "i think we all rule for participating",
+  "i think i have been caught",
+  "i think this will be quite fun actually",
+  "it will be fun, i think"
+  )
+
+str_detect(string_vec, "i think")
+
+str_detect(string_vec, "^i think")
+
+str_detect(string_vec, "i think$")
+```
+
+If you want both lower and uppercase: [Pp]
+
+```{r}
+string_vec = c(
+  "Time for a Pumpkin Spice Latte!",
+  "went to the #pumpkinpatch last weekend",
+  "Pumpkin Pie is obviously the best pie",
+  "SMASHING PUMPKINS -- LIVE IN CONCERT!!"
+  )
+
+str_detect(string_vec,"pumpkin")
+str_detect(string_vec,"Pumpkin")
+str_detect(string_vec,"[Pp]umpkin")
+```
+
