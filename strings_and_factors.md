@@ -224,3 +224,33 @@ table_marj =
   first() |>
   slice(-1)
 ```
+
+need to tidy this dataset!
+
+``` r
+marj_df =
+  table_marj |> 
+  select(-contains("P Value")) |> 
+  pivot_longer(
+    !State,
+    names_to = "age_year",
+    values_to = "percent"
+  ) |> 
+  separate(age_year, into = c("age", "year"), "\\(") |> 
+  mutate(year = str_replace(year, "\\)", ""),
+         percent = str_replace(percent, "[a-b]", ""),
+         percent = as.numeric(percent)
+  ) |>
+  filter(!(State %in% c("Total U.S.", "Northeast", "Midwest", "South", "West")))
+```
+
+``` r
+marj_df |>
+  filter( age == "18-25") |>
+  mutate(State = fct_reorder(State, percent)) |>
+  ggplot(aes(x = State, y = percent, color = year)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+![](strings_and_factors_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
