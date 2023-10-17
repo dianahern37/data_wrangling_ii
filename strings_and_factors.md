@@ -112,3 +112,69 @@ str_detect(string_vec,"[Pp]umpkin")
 ```
 
     ## [1]  TRUE  TRUE  TRUE FALSE
+
+Can detect multiple strings
+
+``` r
+string_vec = c(
+  '7th inning stretch',
+  '1st half soon to begin. Texas won the toss.',
+  'she is 5 feet 4 inches tall',
+  '3AM - cant sleep :('
+  )
+
+str_detect(string_vec, "[0-9]")
+```
+
+    ## [1] TRUE TRUE TRUE TRUE
+
+``` r
+str_detect(string_vec, "^[0-9]")
+```
+
+    ## [1]  TRUE  TRUE FALSE  TRUE
+
+``` r
+str_detect(string_vec, "^[0-9][a-z]")
+```
+
+    ## [1]  TRUE  TRUE FALSE FALSE
+
+``` r
+str_detect(string_vec, "^[0-9][a-zA-Z]")
+```
+
+    ## [1]  TRUE  TRUE FALSE  TRUE
+
+The character `.` matches anything.
+
+``` r
+string_vec = c(
+  'Its 7:11 in the evening',
+  'want to go to 7-11?',
+  'my flight is AA711',
+  'NetBios: scanning ip 203.167.114.66'
+  )
+
+str_detect(string_vec, "7.11")
+```
+
+    ## [1]  TRUE  TRUE FALSE  TRUE
+
+Some characters are “special”. These include `[` and `]`, `(` and `)`,
+and .. If you want to search for these, you have to indicate they’re
+special using `\`. Unfortunately, `\` is also special, so things get
+weird. Two `\\` to find a special character that is not `\`.
+
+``` r
+string_vec = c(
+  'The CI is [2, 5]',
+  ':-]',
+  ':-[',
+  'I found the answer on pages [6-7]'
+  )
+
+str_detect(string_vec, "\\[")
+```
+
+    ## [1]  TRUE FALSE  TRUE  TRUE
